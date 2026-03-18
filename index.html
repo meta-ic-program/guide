@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meta IC Engagement Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0866FF;
+      --primary-dark: #0550cc;
+      --primary-light: #e8f0fe;
+      --border: #e8eaed;
+      --muted: #f8f9fa;
+      --muted-fg: #6b7280;
+      --slate-900: #111827;
+      --slate-800: #1f2937;
+      --slate-700: #374151;
+      --slate-600: #4b5563;
+      --slate-500: #6b7280;
+      --slate-400: #9ca3af;
+      --slate-300: #d1d5db;
+      --slate-100: #f3f4f6;
+      --slate-50: #f9fafb;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: #fff; color: var(--slate-900); line-height: 1.6; }
+    h1, h2, h3 { font-family: 'IBM Plex Serif', serif; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f3f4f6; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+
+    /* ── Top Nav ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      height: 56px; display: flex; align-items: center;
+    }
+    .top-nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-brand-title { font-size: 0.875rem; font-weight: 500; color: var(--slate-700); }
+    .nav-divider { color: #d1d5db; font-size: 1.25rem; font-weight: 300; }
+    .nav-link-ext {
+      display: flex; align-items: center; gap: 0.375rem;
+      font-size: 0.75rem; font-weight: 500; color: var(--primary);
+    }
+    .mobile-menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      padding: 0.5rem; border-radius: 6px; color: var(--slate-700);
+    }
+    .mobile-menu-btn:hover { background: var(--muted); }
+
+    /* ── Layout ── */
+    .layout { max-width: 1280px; margin: 0 auto; display: flex; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 240px; flex-shrink: 0;
+      position: sticky; top: 56px; height: calc(100vh - 56px);
+      overflow-y: auto; padding: 2rem 1rem 2rem 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+    .sidebar-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--slate-400); margin-bottom: 0.75rem; padding: 0 0.75rem;
+    }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.75rem; border-radius: 6px;
+      font-size: 0.875rem; color: var(--muted-fg);
+      cursor: pointer; border: none; background: none; text-align: left; width: 100%;
+      transition: all 0.15s;
+    }
+    .sidebar-link:hover { color: var(--slate-900); background: var(--muted); }
+    .sidebar-link.active { color: var(--primary); background: var(--primary-light); font-weight: 500; }
+    .sidebar-icon { width: 15px; height: 15px; flex-shrink: 0; }
+    .quick-links { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); padding-left: 0.75rem; }
+    .quick-links-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate-400); margin-bottom: 0.75rem; }
+    .quick-link { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--primary); margin-bottom: 0.5rem; }
+
+    /* ── Main ── */
+    .main { flex: 1; min-width: 0; padding: 2.5rem 2rem 2.5rem 3rem; max-width: 780px; }
+
+    /* ── Hero ── */
+    .hero {
+      border-radius: 12px; overflow: hidden; margin-bottom: 2.5rem; padding: 2.5rem;
+      background: linear-gradient(135deg, #e8f0fe 0%, #f0f4ff 50%, #e8f0fe 100%);
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.85); color: var(--primary);
+      font-size: 0.7rem; font-weight: 600; padding: 0.375rem 0.75rem;
+      border-radius: 999px; margin-bottom: 1rem; border: 1px solid rgba(8,102,255,0.15);
+    }
+    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero h1 { font-size: 2rem; font-weight: 700; color: var(--slate-900); line-height: 1.2; margin-bottom: 0.75rem; }
+    .hero p { color: var(--slate-600); font-size: 0.9375rem; line-height: 1.6; max-width: 520px; margin-bottom: 1.25rem; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--primary); color: #fff; font-size: 0.875rem; font-weight: 600;
+      padding: 0.625rem 1rem; border-radius: 8px; border: none; cursor: pointer;
+      transition: background 0.15s; text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--primary-dark); text-decoration: none; color: #fff; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.85); color: var(--slate-700); font-size: 0.875rem; font-weight: 500;
+      padding: 0.625rem 1rem; border-radius: 8px; border: 1px solid var(--slate-300); cursor: pointer;
+      transition: background 0.15s; text-decoration: none;
+    }
+    .btn-secondary:hover { background: #fff; text-decoration: none; }
+
+    /* ── Stats ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 2.5rem; }
+    .stat-card { background: var(--slate-50); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); font-family: 'IBM Plex Sans', sans-serif; }
+    .stat-label { font-size: 0.7rem; font-weight: 600; color: var(--slate-700); margin-top: 2px; }
+    .stat-sub { font-size: 0.7rem; color: var(--slate-400); margin-top: 2px; }
+
+    /* ── Video card ── */
+    .video-card { background: var(--slate-50); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 2.5rem; display: flex; align-items: flex-start; gap: 1rem; }
+    .video-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* ── Section header ── */
+    .section-anchor { scroll-margin-top: 80px; margin-bottom: 1.5rem; }
+    .section-number { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 0.25rem; font-family: 'IBM Plex Sans', sans-serif; }
+    .section-title { font-size: 1.5rem; font-weight: 700; color: var(--slate-900); line-height: 1.3; }
+    .section-subtitle { margin-top: 0.375rem; color: var(--slate-500); font-size: 0.875rem; line-height: 1.6; }
+    .section-divider { margin-top: 0.75rem; height: 1px; background: var(--border); }
+    section { margin-bottom: 3rem; }
+
+    /* ── Callouts ── */
+    .callout { padding: 0.75rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.875rem; margin: 1rem 0; display: flex; gap: 0.5rem; }
+    .callout-tip { border-left: 4px solid #3b82f6; background: #eff6ff; color: #1e3a5f; }
+    .callout-warning { border-left: 4px solid #f59e0b; background: #fffbeb; color: #78350f; }
+    .callout-important { border-left: 4px solid #ef4444; background: #fef2f2; color: #7f1d1d; }
+    .callout-success { border-left: 4px solid #22c55e; background: #f0fdf4; color: #14532d; }
+    .callout-icon { flex-shrink: 0; margin-top: 2px; }
+    .callout strong { font-weight: 600; }
+
+    /* ── Step cards ── */
+    .step-card { position: relative; padding: 1.25rem 1.5rem 1.25rem 3.5rem; border-radius: 8px; border: 1px solid var(--border); background: #fff; margin-bottom: 0.75rem; transition: box-shadow 0.2s; }
+    .step-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .step-number { position: absolute; left: 1rem; top: 1.25rem; width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.875rem; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Sans', sans-serif; }
+    .step-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.375rem; }
+    .step-title { font-weight: 600; color: var(--slate-900); font-size: 0.875rem; line-height: 1.4; }
+    .step-actor { font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; background: var(--slate-100); color: var(--slate-500); font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+    .step-body { font-size: 0.875rem; color: var(--slate-600); line-height: 1.6; }
+    .phase-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-500); margin: 1.5rem 0 0.75rem; }
+
+    /* ── Comparison table ── */
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+    .comparison-table th { padding: 0.75rem; text-align: left; font-weight: 600; }
+    .comparison-table th:first-child { background: var(--slate-100); color: var(--slate-700); width: 33%; }
+    .comparison-table th:nth-child(2) { background: #0866FF; color: #fff; }
+    .comparison-table th:last-child { background: #374151; color: #fff; }
+    .comparison-table td { padding: 0.75rem; border: 1px solid var(--border); color: var(--slate-600); }
+    .comparison-table td:first-child { font-weight: 500; color: var(--slate-700); }
+    .comparison-table tr:nth-child(even) td { background: rgba(249,250,251,0.5); }
+    .comparison-table tr:nth-child(odd) td { background: #fff; }
+
+    /* ── Pathway cards ── */
+    .pathway-card { border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; border: 1px solid; }
+    .pathway-card-fq { border-color: #bfdbfe; background: rgba(239,246,255,0.3); }
+    .pathway-card-bs { border-color: #fde68a; background: rgba(255,251,235,0.3); }
+    .pathway-card-w2 { border-color: #e5e7eb; background: rgba(249,250,251,0.3); }
+    .pathway-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .pathway-badge { font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; }
+    .badge-fq { background: #0866FF; color: #fff; }
+    .badge-bs { background: #d97706; color: #fff; }
+    .badge-w2 { background: #374151; color: #fff; }
+    .pathway-name { font-weight: 600; color: var(--slate-900); }
+    .pathway-markup { font-size: 1.125rem; font-weight: 700; color: var(--slate-900); text-align: right; font-family: 'IBM Plex Sans', sans-serif; }
+    .pathway-markup-label { font-size: 0.7rem; color: var(--slate-500); text-align: right; }
+    .pathway-desc { font-size: 0.875rem; color: var(--slate-700); line-height: 1.6; margin-bottom: 0.75rem; }
+    .pathway-breakdown { font-size: 0.75rem; color: var(--slate-500); background: rgba(255,255,255,0.6); border-radius: 6px; padding: 0.5rem 0.75rem; font-family: monospace; }
+
+    /* ── Pre-start checklist ── */
+    .checklist-box { background: var(--slate-50); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem; }
+    .checklist-title { font-size: 0.875rem; font-weight: 600; color: var(--slate-800); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .checklist-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.75rem; color: var(--slate-700); }
+    .check-arrow { color: #22c55e; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Equipment steps ── */
+    .equip-step { display: flex; gap: 0.75rem; padding: 1rem; border: 1px solid var(--border); border-radius: 8px; background: #fff; margin-bottom: 0.5rem; }
+    .equip-step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--slate-100); color: var(--slate-600); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .equip-step-title { font-size: 0.875rem; font-weight: 600; color: var(--slate-800); margin-bottom: 2px; }
+    .equip-step-desc { font-size: 0.75rem; color: var(--slate-600); line-height: 1.5; }
+    .return-steps { background: var(--slate-50); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; font-size: 0.75rem; color: var(--slate-700); }
+    .return-step { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.375rem; }
+    .return-step-num { color: var(--primary); font-weight: 700; flex-shrink: 0; }
+
+    /* ── Invoicing ── */
+    .invoice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+    .invoice-card { border-radius: 12px; padding: 1.25rem; }
+    .invoice-card-ic { border: 1px solid #bfdbfe; background: rgba(239,246,255,0.3); }
+    .invoice-card-w2 { border: 1px solid #e5e7eb; background: rgba(249,250,251,0.3); }
+    .invoice-type-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+    .invoice-type-ic { color: #0866FF; }
+    .invoice-type-w2 { color: var(--slate-600); }
+    .invoice-step { display: flex; gap: 0.5rem; font-size: 0.875rem; color: var(--slate-700); margin-bottom: 0.5rem; }
+    .invoice-step-num { font-weight: 700; flex-shrink: 0; }
+    .invoice-step-num-ic { color: #0866FF; }
+    .invoice-step-num-w2 { color: var(--slate-600); }
+    .payment-table { width: 100%; font-size: 0.75rem; }
+    .payment-table th { text-align: left; padding: 0.5rem 1rem 0.5rem 0; font-weight: 600; color: var(--slate-600); border-bottom: 1px solid var(--border); }
+    .payment-table td { padding: 0.375rem 1rem 0.375rem 0; color: var(--slate-700); border-bottom: 1px solid rgba(229,231,235,0.5); }
+    .payment-table td:first-child { font-weight: 500; }
+
+    /* ── FAQ ── */
+    .faq-item { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 0.5rem; }
+    .faq-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 1rem; text-align: left; background: none; border: none; cursor: pointer; transition: background 0.15s; }
+    .faq-btn:hover { background: var(--muted); }
+    .faq-question { font-size: 0.875rem; font-weight: 500; color: var(--slate-800); padding-right: 1rem; }
+    .faq-chevron { width: 16px; height: 16px; color: var(--slate-400); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-chevron.open { transform: rotate(180deg); }
+    .faq-answer { padding: 0.75rem 1rem 1rem; border-top: 1px solid var(--border); background: rgba(249,250,251,0.5); font-size: 0.875rem; color: var(--slate-700); line-height: 1.6; display: none; }
+    .faq-answer.open { display: block; }
+    .faq-answer ul { list-style: disc; padding-left: 1.25rem; margin-top: 0.5rem; }
+    .faq-answer li { margin-bottom: 0.25rem; }
+
+    /* ── Contacts ── */
+    .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .contact-card { border-radius: 12px; padding: 1.25rem; }
+    .contact-name { font-weight: 600; color: var(--slate-900); font-size: 0.875rem; margin-bottom: 2px; }
+    .contact-role { font-size: 0.75rem; color: var(--slate-500); margin-bottom: 0.75rem; }
+    .contact-link { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--primary); margin-bottom: 0.375rem; }
+    .contact-phone { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--slate-600); margin-bottom: 0.375rem; }
+    .contact-hours { font-size: 0.75rem; color: var(--slate-500); padding-left: 1rem; margin-bottom: 0.375rem; }
+    .contact-note { font-size: 0.75rem; color: var(--slate-600); line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.6); padding-top: 0.5rem; margin-top: 0.5rem; }
+    .resources-box { margin-top: 1.5rem; background: rgba(8,102,255,0.04); border: 1px solid rgba(8,102,255,0.15); border-radius: 12px; padding: 1.25rem; }
+    .resources-title { font-size: 0.875rem; font-weight: 600; color: var(--slate-900); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .resources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .resource-link { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--primary); }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 1.5rem 0 2.5rem; text-align: center; }
+    footer p { font-size: 0.75rem; color: var(--slate-400); margin-bottom: 0.25rem; }
+
+    /* ── Chatbot ── */
+    .chat-bubble {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 100;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--primary); color: #fff; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(8,102,255,0.35); transition: all 0.2s;
+    }
+    .chat-bubble:hover { background: var(--primary-dark); transform: scale(1.05); }
+    .chat-bubble:active { transform: scale(0.95); }
+    .chat-panel {
+      position: fixed; bottom: 5.5rem; right: 1.5rem; z-index: 100;
+      width: 380px; max-width: calc(100vw - 3rem);
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border); box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      display: none; flex-direction: column;
+      background: #fff;
+    }
+    .chat-panel.open { display: flex; }
+    .chat-header { background: var(--primary); padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.625rem; }
+    .chat-avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .chat-header-name { color: #fff; font-size: 0.875rem; font-weight: 600; line-height: 1.2; }
+    .chat-header-sub { color: rgba(255,255,255,0.7); font-size: 0.75rem; }
+    .chat-messages { height: 360px; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; background: #fff; }
+    .chat-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 0.75rem; }
+    .chat-empty-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; }
+    .chat-empty-text { font-size: 0.8125rem; color: var(--slate-500); text-align: center; }
+    .chat-suggestions { display: flex; flex-wrap: wrap; gap: 0.375rem; justify-content: center; margin-top: 0.5rem; }
+    .chat-suggestion {
+      font-size: 0.75rem; padding: 0.375rem 0.625rem; border-radius: 999px;
+      border: 1px solid var(--border); background: #fff; color: var(--slate-700);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .chat-suggestion:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .msg { max-width: 85%; padding: 0.625rem 0.875rem; border-radius: 12px; font-size: 0.8125rem; line-height: 1.5; }
+    .msg-user { background: var(--primary); color: #fff; align-self: flex-end; border-radius: 12px 12px 2px 12px; }
+    .msg-assistant { background: var(--slate-100); color: var(--slate-800); align-self: flex-start; border-radius: 12px 12px 12px 2px; }
+    .msg-assistant strong { font-weight: 600; }
+    .msg-loading { display: flex; gap: 4px; align-items: center; padding: 0.625rem 0.875rem; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--slate-400); animation: bounce 1.2s infinite; }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+    .chat-input-area { border-top: 1px solid var(--border); padding: 0.75rem; display: flex; gap: 0.5rem; background: #fff; }
+    .chat-input {
+      flex: 1; border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.5rem 0.75rem; font-size: 0.875rem; font-family: 'IBM Plex Sans', sans-serif;
+      outline: none; resize: none; min-height: 38px; max-height: 100px;
+    }
+    .chat-input:focus { border-color: var(--primary); }
+    .chat-send {
+      width: 36px; height: 36px; border-radius: 8px; background: var(--primary); color: #fff;
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background 0.15s; align-self: flex-end;
+    }
+    .chat-send:hover { background: var(--primary-dark); }
+    .chat-send:disabled { background: var(--slate-300); cursor: not-allowed; }
+
+    /* ── Mobile ── */
+    .mobile-nav { display: none; }
+    @media (max-width: 1023px) {
+      .sidebar { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .main { padding: 1.5rem 1rem; max-width: 100%; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .invoice-grid { grid-template-columns: 1fr; }
+      .contacts-grid { grid-template-columns: 1fr; }
+      .checklist-grid { grid-template-columns: 1fr; }
+      .resources-grid { grid-template-columns: 1fr; }
+      .mobile-nav { display: block; border-top: 1px solid var(--border); background: #fff; }
+      .mobile-nav-inner { padding: 0.75rem 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem; }
+      .mobile-nav-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; color: var(--muted-fg); cursor: pointer; border: none; background: none; text-align: left; }
+      .mobile-nav-link:hover { background: var(--muted); color: var(--slate-900); }
+      .mobile-nav.hidden { display: none; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 1.5rem; }
+      .hero h1 { font-size: 1.5rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .chat-panel { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; }
+      .chat-bubble { right: 1rem; bottom: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Top Navigation ── -->
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <div class="nav-brand">
+      <svg viewBox="0 0 200 40" style="height:24px;width:auto" aria-label="Meta">
+        <path d="M10 28 C10 22 14 14 20 14 C24 14 27 17 30 22 C33 17 36 14 40 14 C46 14 50 22 50 28 C50 32 48 35 45 35 C42 35 40 32 40 28 C40 24 38 20 36 20 C34 20 32 24 30 30 C28 24 26 20 24 20 C22 20 20 24 20 28 C20 32 18 35 15 35 C12 35 10 32 10 28 Z" fill="#0866FF"/>
+        <text x="58" y="30" font-family="IBM Plex Sans, sans-serif" font-weight="600" font-size="18" fill="#1C1E21">Meta</text>
+      </svg>
+      <span class="nav-divider">|</span>
+      <span class="nav-brand-title">IC Engagement Guide</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.75rem">
+      <a href="https://www.internalfb.com/people_portal" target="_blank" class="nav-link-ext" style="display:none" id="portal-link">
+        People Portal
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+        <svg id="menu-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="close-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile nav -->
+  <div class="mobile-nav hidden" id="mobile-nav">
+    <div class="mobile-nav-inner">
+      <button class="mobile-nav-link" onclick="scrollTo('overview');toggleMobileNav()">Overview</button>
+      <button class="mobile-nav-link" onclick="scrollTo('classification');toggleMobileNav()">IC vs. W2</button>
+      <button class="mobile-nav-link" onclick="scrollTo('pathways');toggleMobileNav()">Pathways</button>
+      <button class="mobile-nav-link" onclick="scrollTo('process');toggleMobileNav()">Process</button>
+      <button class="mobile-nav-link" onclick="scrollTo('equipment');toggleMobileNav()">Equipment</button>
+      <button class="mobile-nav-link" onclick="scrollTo('invoicing');toggleMobileNav()">Invoicing</button>
+      <button class="mobile-nav-link" onclick="scrollTo('faq');toggleMobileNav()">FAQ</button>
+      <button class="mobile-nav-link" onclick="scrollTo('contacts');toggleMobileNav()">Contacts</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Layout ── -->
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <p class="sidebar-label">Contents</p>
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <button class="sidebar-link active" onclick="scrollTo('overview')" data-section="overview">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Overview
+      </button>
+      <button class="sidebar-link" onclick="scrollTo('classification')" data-section="classification">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        IC vs. W2 Contractor
+      </button>
+      <button class="sidebar-link" onclick="scrollTo('pathways')" data-section="pathways">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Engagement Pathways
+      </button>
+      <button class="sidebar-link" onclick="scrollTo('process')" data-section="process">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Step-by-Step Process
+      </button>
+      <button class="sidebar-link" onclick="scrollTo('equipment')" data-section="equipment">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Equipment &amp; Setup
+      </button>
+      <button class="sidebar-link" onclick="scrollTo('invoicing')" data-section="invoicing">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Invoicing &amp; Payments
+      </button>
+      <button class="sidebar-link" onclick="scrollTo('faq')" data-section="faq">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ
+      </button>
+      <button class="sidebar-link" onclick="scrollTo('contacts')" data-section="contacts">
+        <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Support &amp; Contacts
+      </button>
+    </nav>
+
+    <div class="quick-links">
+      <p class="quick-links-label">Quick Links</p>
+      <a href="https://www.internalfb.com/people_portal" target="_blank" class="quick-link">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        People Portal
+      </a>
+      <a href="https://www.internalfb.com/intern/buy/store" target="_blank" class="quick-link">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Buy@ Enterprise Store
+      </a>
+      <a href="https://www.metaenterprise.com/cw/" target="_blank" class="quick-link">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        CW Profile Portal
+      </a>
+      <a href="mailto:meta@mbopartners.com" class="quick-link">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        MBO Support
+      </a>
+    </div>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="main">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-badge"><span class="hero-badge-dot"></span> US Only · Powered by MBO Partners</div>
+      <h1>Independent Contractor<br>Engagement Guide</h1>
+      <p>Everything CWAMs need to know about engaging Independent Contractors at Meta — from classification to compliance, onboarding to offboarding.</p>
+      <div class="hero-btns">
+        <a href="#process" class="btn-primary" onclick="scrollTo('process');return false;">Start the Process →</a>
+        <a href="#faq" class="btn-secondary" onclick="scrollTo('faq');return false;">View FAQ</a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-value">15+</div><div class="stat-label">Business days minimum</div><div class="stat-sub">from intake to start</div></div>
+      <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Engagement pathways</div><div class="stat-sub">IC, Business Services, W2</div></div>
+      <div class="stat-card"><div class="stat-value">Net 15</div><div class="stat-label">Payment terms</div><div class="stat-sub">after invoice approval</div></div>
+      <div class="stat-card"><div class="stat-value">~10</div><div class="stat-label">Business days</div><div class="stat-sub">for equipment shipping</div></div>
+    </div>
+
+    <!-- Video card -->
+    <div class="video-card">
+      <div class="video-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0866FF" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+      </div>
+      <div>
+        <p style="font-weight:600;font-size:0.875rem;color:#111827;margin-bottom:4px">Watch: Meta's IC Program Overview</p>
+        <p style="font-size:0.75rem;color:#6b7280;line-height:1.5">A short walkthrough of the IC engagement process — covering classification, pathways, invoicing, and equipment. Recommended for all CWAMs before initiating a new engagement.</p>
+        <p style="font-size:0.75rem;color:#9ca3af;margin-top:6px;font-style:italic">Video available via your Meta internal resources. Contact Lara Rustom or Jim McVoy to access.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 1: Overview -->
+    <section>
+      <div class="section-anchor" id="overview">
+        <span class="section-number">01</span>
+        <h2 class="section-title">What is an Independent Contractor?</h2>
+        <p class="section-subtitle">Understanding the definition and why Meta uses a structured program.</p>
+        <div class="section-divider"></div>
+      </div>
+      <p style="font-size:0.875rem;color:#374151;line-height:1.7;margin-bottom:1rem">An <strong>Independent Contractor (IC)</strong> is a self-employed individual or small business with fewer than five employees that provides specialized services. Unlike employees or W2 contractors, ICs operate their own business, control how and when work is performed, typically use their own tools and methods, are responsible for their own taxes and benefits, and provide services to multiple clients — not just Meta.</p>
+      <div class="callout callout-important">
+        <svg class="callout-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>Important:</strong> US law is very specific about who qualifies as an IC. Misclassification can expose Meta to significant legal, tax, and financial risks. <strong>All IC engagements must go through MBO Partners.</strong></div>
+      </div>
+      <div style="margin-top:1.25rem">
+        <h3 style="font-size:1rem;font-weight:600;color:#111827;margin-bottom:0.75rem">Why Meta uses the IC Program</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem">
+          <div style="border:1px solid #bfdbfe;background:#eff6ff;border-radius:8px;padding:1rem"><h4 style="font-size:0.875rem;font-weight:600;color:#1e40af;margin-bottom:4px">Compliance</h4><p style="font-size:0.75rem;color:#374151;line-height:1.5">Ensures every engagement meets IRS and state classification standards.</p></div>
+          <div style="border:1px solid #bbf7d0;background:#f0fdf4;border-radius:8px;padding:1rem"><h4 style="font-size:0.875rem;font-weight:600;color:#166534;margin-bottom:4px">Protection</h4><p style="font-size:0.75rem;color:#374151;line-height:1.5">Shields CWAMs and Meta from misclassification penalties.</p></div>
+          <div style="border:1px solid #fde68a;background:#fffbeb;border-radius:8px;padding:1rem"><h4 style="font-size:0.875rem;font-weight:600;color:#92400e;margin-bottom:4px">Simplicity</h4><p style="font-size:0.75rem;color:#374151;line-height:1.5">Streamlines vetting, contracting, and onboarding through a single vendor.</p></div>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem">
+        <h3 style="font-size:1rem;font-weight:600;color:#111827;margin-bottom:0.5rem">Who is MBO Partners?</h3>
+        <p style="font-size:0.875rem;color:#374151;line-height:1.7">MBO Partners is an industry leader in Independent Contractor compliance solutions and a trusted partner of Meta's. As Meta's approved vendor, they specialize in IC compliance and engagement management — handling the full IC process on Meta's behalf, including worker eligibility verification, onboarding, insurance requirements, compliance checks, contracts, and payments. MBO brings deep expertise in US IC rules and regulations, ensuring every engagement is defensible and audit-ready.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Classification -->
+    <section>
+      <div class="section-anchor" id="classification">
+        <span class="section-number">02</span>
+        <h2 class="section-title">IC vs. W2 Contractor</h2>
+        <p class="section-subtitle">Use this guide to determine the right engagement type before initiating.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Criteria</th>
+              <th>Independent Contractor (IC)</th>
+              <th>W2 Contractor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Business structure</td><td>Runs own business or LLC</td><td>Employee of a staffing agency</td></tr>
+            <tr><td>Work control</td><td>Controls how &amp; when work is done</td><td>Works under Meta's direction</td></tr>
+            <tr><td>Engagement type</td><td>Defined scope / project-based</td><td>Ongoing tasks or backfill role</td></tr>
+            <tr><td>Supervision</td><td>No direct Meta supervision</td><td>Close integration with Meta team</td></tr>
+            <tr><td>Tools &amp; equipment</td><td>Typically uses own tools</td><td>May require Meta-issued equipment</td></tr>
+            <tr><td>Systems access</td><td>Limited / project-specific</td><td>Full systems access as needed</td></tr>
+            <tr><td>Example use case</td><td>Freelance designer delivering project-based creative work</td><td>Program coordinator backfilling an FTE on leave</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout callout-tip" style="margin-top:1rem">
+        <svg class="callout-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div><strong>Tip:</strong> For more guidance on choosing the right contingent worker type, visit the <strong>"Choosing a Contingent Worker type"</strong> guide in People Portal.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Pathways -->
+    <section>
+      <div class="section-anchor" id="pathways">
+        <span class="section-number">03</span>
+        <h2 class="section-title">Engagement Pathways &amp; Costs</h2>
+        <p class="section-subtitle">MBO evaluates each worker and determines the most compliant pathway. There are three options.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="pathway-card pathway-card-fq">
+        <div class="pathway-header">
+          <div style="display:flex;align-items:center;gap:0.625rem"><span class="pathway-badge badge-fq">FQ</span><span class="pathway-name">Fully Qualified IC</span></div>
+          <div><div class="pathway-markup">4.75%</div><div class="pathway-markup-label">markup</div></div>
+        </div>
+        <p class="pathway-desc">The worker is a fully compliant self-employed business meeting all IRS standards. They have a legal business entity, evidence of other clients, a marketing presence (website/LinkedIn), business liability insurance, and full operational autonomy.</p>
+        <div class="pathway-breakdown">2.5% MBO + 1.75% CWx + 0.5% VMS</div>
+      </div>
+      <div class="pathway-card pathway-card-bs">
+        <div class="pathway-header">
+          <div style="display:flex;align-items:center;gap:0.625rem"><span class="pathway-badge badge-bs">BS</span><span class="pathway-name">Business Services</span></div>
+          <div><div class="pathway-markup">7% – 10.25%</div><div class="pathway-markup-label">markup</div></div>
+        </div>
+        <p class="pathway-desc">The worker wants to operate as an IC but doesn't yet meet all compliance criteria. MBO helps them establish a compliant business entity (LLC), secure insurance, and build their client base. This pathway reduces misclassification risk for Meta.</p>
+        <div class="pathway-breakdown">Up to 8% MBO + 1.75% CWx + 0.5% VMS</div>
+      </div>
+      <div class="pathway-card pathway-card-w2">
+        <div class="pathway-header">
+          <div style="display:flex;align-items:center;gap:0.625rem"><span class="pathway-badge badge-w2">W2</span><span class="pathway-name">Payroll Services (W2)</span></div>
+          <div><div class="pathway-markup">16.1% – 18.75%</div><div class="pathway-markup-label">markup</div></div>
+        </div>
+        <p class="pathway-desc">The worker does not qualify as an IC. They are engaged through MBO as a W2 contractor with a standard employment relationship, proper tax withholding, and benefits.</p>
+        <div class="pathway-breakdown">Rate-dependent: &gt;$150/hr = 16.1%, &lt;$50/hr = 18.75%</div>
+      </div>
+      <div class="callout callout-warning">
+        <svg class="callout-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>Note:</strong> Markup fees are applied to invoices billed to Meta. They are <strong>not</strong> deducted from the worker's pay.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Process -->
+    <section>
+      <div class="section-anchor" id="process">
+        <span class="section-number">04</span>
+        <h2 class="section-title">Step-by-Step Process</h2>
+        <p class="section-subtitle">From intake to first day. Plan for a minimum of 15 business days — responsiveness from both the CWAM and the IC is the biggest factor in timing.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="callout callout-tip">
+        <svg class="callout-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <div><strong>Tip:</strong> <strong>Engage early.</strong> Allow a minimum 3-week lead time. Connect with your Finance BP before starting to validate budget codes (Project Code, Cost Code, Product Code).</div>
+      </div>
+      <p class="phase-label">Phase 1 — Initiation in Buy@</p>
+      <div class="step-card"><div class="step-number">1</div><div class="step-header"><span class="step-title">Complete the Global Intake Form in Buy@</span><span class="step-actor">CWAM</span></div><p class="step-body">Access Buy@ via People Portal and complete the <strong>Global Intake Form</strong> (Supplier Invite Form + Third Party Assessment / TPA). You will need: project scope, deliverables and cost, supplier name and contact details, worker pay type, cost center, project code, estimated start/end dates, and whether the supplier needs site/systems access or will handle sensitive data.</p></div>
+      <div class="step-card"><div class="step-number">2</div><div class="step-header"><span class="step-title">Supplier completes registration</span><span class="step-actor">Supplier</span></div><p class="step-body">The supplier receives the Supplier Invite Form and confirms their number of employees. If fewer than 5 employees, they are routed to the Business Validation queue in Buy@ for Lara Rustom to action and engage MBO Partners.</p></div>
+      <div class="step-card"><div class="step-number">3</div><div class="step-header"><span class="step-title">Legal review (if TPA flagged)</span><span class="step-actor">Meta Legal</span></div><p class="step-body">If the Third Party Assessment is flagged, Meta Legal reviews the engagement. Once approved, Lara requests a referral for engagement by MBO Partners.</p></div>
+      <p class="phase-label">Phase 2 — MBO Evaluation &amp; Onboarding</p>
+      <div class="step-card"><div class="step-number">4</div><div class="step-header"><span class="step-title">Manager &amp; supplier complete MBO questionnaires</span><span class="step-actor">CWAM + Supplier</span></div><p class="step-body">Both the CWAM and the supplier complete structured questionnaires (Manager Questionnaire and Supplier Enrollment Form / SEF). MBO uses these responses to determine the appropriate engagement pathway. Allow approximately 45 minutes total.</p></div>
+      <div class="step-card"><div class="step-number">5</div><div class="step-header"><span class="step-title">MBO presents evaluation results</span><span class="step-actor">MBO + CWAM</span></div><p class="step-body">MBO reviews the responses, determines the engagement service (Vendor Services, Business Services, or Payroll Services), and presents the evaluation results and engagement cost to the CWAM for approval.</p></div>
+      <div class="step-card"><div class="step-number">6</div><div class="step-header"><span class="step-title">Worker completes onboarding checklist</span><span class="step-actor">Supplier</span></div><p class="step-body">MBO provides the worker with a detailed daily list of onboarding steps. The worker completes: Meta-required background check, Meta onboarding documents (I-9 for W2, MBO account creation, business documentation such as Articles of Incorporation, W-9, proof of other clients). MBO assists with LLC setup if needed.</p></div>
+      <div class="step-card"><div class="step-number">7</div><div class="step-header"><span class="step-title">MBO creates Beeline request; Finance approves</span><span class="step-actor">MBO + Finance</span></div><p class="step-body">MBO creates the Beeline requisition and submits the candidate to the CWAM and Finance for approval. Once Finance approves, the background check step is completed and the request routes to the CWx team for provisioning.</p></div>
+      <p class="phase-label">Phase 3 — Provisioning &amp; Start</p>
+      <div class="step-card"><div class="step-number">8</div><div class="step-header"><span class="step-title">AGS/CWx provisioning and setup</span><span class="step-actor">AGS / CWx</span></div><p class="step-body">The CWx team handles provisioning and setup in Workday. If the worker requires equipment, the CWx team initiates the CW Profile process (see Equipment section below).</p></div>
+      <div class="step-card"><div class="step-number">9</div><div class="step-header"><span class="step-title">SOW signed; worker cleared to start</span><span class="step-actor">MBO + Worker</span></div><p class="step-body">MBO initiates the Statement of Work (SOW) process and sends it to Meta and the worker for e-signature. MBO also provides the worker with detailed instructions for submitting milestones, deliverables, and expenses.</p></div>
+      <div class="callout callout-important">
+        <svg class="callout-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>Important:</strong> <strong>Workers cannot begin their project until all evaluation and onboarding steps are fully complete.</strong> MBO Partners will confirm once everything is in order.</div>
+      </div>
+      <div class="checklist-box">
+        <p class="checklist-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Pre-Start Checklist
+        </p>
+        <div class="checklist-grid">
+          <div class="checklist-item"><span class="check-arrow">›</span>Third Party Assessment (TPA) completed</div>
+          <div class="checklist-item"><span class="check-arrow">›</span>IC Evaluation by MBO completed</div>
+          <div class="checklist-item"><span class="check-arrow">›</span>IC Background Check completed</div>
+          <div class="checklist-item"><span class="check-arrow">›</span>SOW / IC Agreement signed</div>
+          <div class="checklist-item"><span class="check-arrow">›</span>Beeline Work Order approved by Finance</div>
+          <div class="checklist-item"><span class="check-arrow">›</span>Worker Facebook URL check completed</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Equipment -->
+    <section>
+      <div class="section-anchor" id="equipment">
+        <span class="section-number">05</span>
+        <h2 class="section-title">Equipment &amp; Setup</h2>
+        <p class="section-subtitle">Equipment can only ship after an active Beeline assignment, Workday profile, and confirmed shipping address.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="callout callout-tip">
+        <svg class="callout-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div><strong>Tip:</strong> <strong>Plan ahead.</strong> Shipping takes approximately 10 business days. Consider setting the project start date one week earlier than needed so the worker has equipment on day one.</div>
+      </div>
+      <h3 style="font-size:1rem;font-weight:600;color:#111827;margin:1.25rem 0 0.75rem">Ordering Equipment</h3>
+      <p style="font-size:0.875rem;color:#374151;line-height:1.7;margin-bottom:0.75rem">Equipment is ordered through the <strong>Enterprise Store (Buy@)</strong>. Navigate to <code style="font-size:0.75rem;background:#f3f4f6;padding:2px 6px;border-radius:4px;font-family:monospace">Your devices</code> in the left menu, then select the Laptop or Phone tile. Fill out the request details and choose your shipping method.</p>
+      <a href="https://www.internalfb.com/intern/buy/store" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.875rem;color:#0866FF;font-weight:500">Open Enterprise Store (Buy@) <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <h3 style="font-size:1rem;font-weight:600;color:#111827;margin:1.25rem 0 0.75rem">Worker Setup Process</h3>
+      <div class="equip-step"><div class="equip-step-num">1</div><div><p class="equip-step-title">Activate CW Profile</p><p class="equip-step-desc">The worker receives an email from Meta Enterprise Center (notification@mail.facebookenterprise.com) prompting them to activate their Contingent Worker Profile. This email can land in spam — the worker should check their junk folder and alert MBO Client Care immediately if it is not received.</p></div></div>
+      <div class="equip-step"><div class="equip-step-num">2</div><div><p class="equip-step-title">Provide shipping address</p><p class="equip-step-desc">After logging into the CW Profile (metaenterprise.com), the worker provides their shipping address. The address must be within the country of employment. Equipment is estimated to arrive within 10 business days of address entry.</p></div></div>
+      <div class="equip-step"><div class="equip-step-num">3</div><div><p class="equip-step-title">Equipment setup</p><p class="equip-step-desc">The first-time setup password is included in the equipment tracking email, along with a link to the setup portal. For device setup support, the worker can call 1-650-644-5000 or use the Helpdesk on Workplace.</p></div></div>
+      <h3 style="font-size:1rem;font-weight:600;color:#111827;margin:1.25rem 0 0.75rem">Equipment Returns</h3>
+      <p style="font-size:0.875rem;color:#374151;line-height:1.7;margin-bottom:0.75rem">At the end of the assignment, the worker receives an email directing them to their CW Profile page to initiate the return. If no email is received, they should go to <a href="https://www.metaenterprise.com/cw/" target="_blank">metaenterprise.com/cw/</a> directly.</p>
+      <div class="return-steps">
+        <p style="font-weight:600;color:#1f2937;margin-bottom:0.5rem">Return process:</p>
+        <div class="return-step"><span class="return-step-num">1.</span>Select <em>Start your return</em> on the Equipment returns page</div>
+        <div class="return-step"><span class="return-step-num">2.</span>Choose Return or Dispute for each asset</div>
+        <div class="return-step"><span class="return-step-num">3.</span>Confirm assets are not hazardous</div>
+        <div class="return-step"><span class="return-step-num">4.</span>Select return method: UPS QR Code (recommended) or courier drop-off</div>
+        <div class="return-step"><span class="return-step-num">5.</span>Enter shipping address and submit</div>
+      </div>
+      <div class="callout callout-important" style="margin-top:0.75rem">
+        <svg class="callout-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>Important:</strong> Failure to return Meta assets at the end of an assignment can result in a <strong>financial penalty</strong>.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Invoicing -->
+    <section>
+      <div class="section-anchor" id="invoicing">
+        <span class="section-number">06</span>
+        <h2 class="section-title">Invoicing &amp; Payments</h2>
+        <p class="section-subtitle">The process differs slightly depending on the worker's engagement type, but your role as CWAM is consistent: approve submissions in Beeline.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="invoice-grid">
+        <div class="invoice-card invoice-card-ic">
+          <p class="invoice-type-label invoice-type-ic">IC / Milestone Billers</p>
+          <div class="invoice-step"><span class="invoice-step-num invoice-step-num-ic">1.</span>Worker submits milestone invoices into MBO Portal / JobDiva by <strong>Sunday night</strong></div>
+          <div class="invoice-step"><span class="invoice-step-num invoice-step-num-ic">2.</span>MBO pulls milestones and submits into Beeline as Miscellaneous Invoices on <strong>Monday mornings</strong></div>
+          <div class="invoice-step"><span class="invoice-step-num invoice-step-num-ic">3.</span>CWAM approves in Beeline by <strong>Thursday 8 PM ET</strong></div>
+          <div class="invoice-step"><span class="invoice-step-num invoice-step-num-ic">4.</span>Invoice consolidated Friday; Meta pays MBO at Net 15; MBO pays worker <strong>~3 weeks from consolidation</strong></div>
+        </div>
+        <div class="invoice-card invoice-card-w2">
+          <p class="invoice-type-label invoice-type-w2">Payroll / Hourly Billers</p>
+          <div class="invoice-step"><span class="invoice-step-num invoice-step-num-w2">1.</span>Worker submits time directly into Beeline each week by <strong>Sunday night</strong></div>
+          <div class="invoice-step"><span class="invoice-step-num invoice-step-num-w2">2.</span>CWAM approves time in Beeline by <strong>Thursday 8 PM ET</strong></div>
+          <div class="invoice-step"><span class="invoice-step-num invoice-step-num-w2">3.</span>Invoice consolidated Friday; Meta pays MBO at Net 15; MBO pays worker <strong>1–2 weeks from consolidation</strong> (varies by state)</div>
+        </div>
+      </div>
+      <div class="callout callout-important">
+        <svg class="callout-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div><strong>Important:</strong> <strong>CWAMs must approve all Beeline submissions by Thursday at 8 PM ET.</strong> Workers cannot be paid until approval is made. If you need a delegate approver (e.g., you are on leave), a backup can be assigned in Beeline.</div>
+      </div>
+      <div style="margin-top:1.25rem;background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:1rem">
+        <h3 style="font-size:0.875rem;font-weight:600;color:#1f2937;margin-bottom:0.75rem">Payment Timeline Summary</h3>
+        <div style="overflow-x:auto">
+          <table class="payment-table">
+            <thead><tr><th>Day</th><th>IC / Milestone</th><th>Payroll / Hourly</th></tr></thead>
+            <tbody>
+              <tr><td>Sunday</td><td>Worker submits invoice to MBO Portal</td><td>Worker submits time in Beeline</td></tr>
+              <tr><td>Monday</td><td>MBO submits to Beeline</td><td>—</td></tr>
+              <tr><td>Thursday</td><td>CWAM approves by 8 PM ET</td><td>CWAM approves by 8 PM ET</td></tr>
+              <tr><td>Friday</td><td>Invoice consolidated</td><td>Invoice consolidated</td></tr>
+              <tr><td>Net 15</td><td>Meta pays MBO; worker paid ~3 weeks out</td><td>Meta pays MBO; worker paid 1–2 weeks out</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: FAQ -->
+    <section>
+      <div class="section-anchor" id="faq">
+        <span class="section-number">07</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Common questions from CWAMs about the IC engagement process.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div id="faq-list">
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFAQ(this)">
+            <span class="faq-question">What do I need to start the process?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">Complete the <strong>Independent Contractor Intake Form</strong> in People Portal. You will need the following information ready:<ul><li>Confirmed project scope, deliverables, and cost</li><li>Supplier name and contact details</li><li>Worker pay type (Hourly or Milestone)</li><li>Hourly rate or breakdown of deliverables and cost</li><li>Cost center and project code (if applicable)</li><li>Estimated project start and end dates</li><li>Whether the supplier will need site and/or systems access</li><li>Whether the supplier will have access to highly sensitive data</li></ul></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFAQ(this)">
+            <span class="faq-question">How long does the process take?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">The process can take <strong>as little as 15 business days</strong>, but speed depends heavily on the responsiveness of both the IC and the CWAM. The following steps must all be completed before the worker can begin: Third Party Assessment (TPA), IC Evaluation by MBO, IC Background Check, signed SOW/IC Agreement, Beeline Work Order approved by Finance, and Worker Facebook URL check.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFAQ(this)">
+            <span class="faq-question">What if the candidate doesn't qualify as an IC?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">MBO will take every action to ensure a full understanding of the project and qualify the worker. Should IC classification not be possible, MBO will work closely with you and the CW Team to engage the worker as a <strong>W2 contractor through MBO</strong> (Payroll Services pathway).</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFAQ(this)">
+            <span class="faq-question">What is MBO's Business Services Program?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">The Business Services Program is designed for workers who cannot yet qualify as an IC on their own — for example, they may lack a business entity, proper insurance, or other compliance requirements — but want to operate as a business rather than being onboarded as a W2 contractor. MBO assesses eligibility and helps the worker establish and maintain a compliant business entity (LLC), handling business administration on their behalf. This pathway reduces misclassification risk for Meta.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFAQ(this)">
+            <span class="faq-question">Can I assign a delegate to approve invoices in Beeline?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">Yes. If you need a delegate for approval (for example, if you are an FTE on leave), a backup approver can be assigned in Beeline. Contact MBO or the Meta CW Team for assistance setting this up.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFAQ(this)">
+            <span class="faq-question">Are the markup fees deducted from the IC's pay?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">No. All markup fees are applied to invoices <strong>billed to Meta</strong> — they are not deducted from the IC's pay. The IC receives their agreed rate in full.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFAQ(this)">
+            <span class="faq-question">When should I engage an IC vs. a W2 contractor?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">Use an <strong>IC</strong> when you need a specialized professional who runs their own business, controls how and when the work is performed, is engaged for a defined scope or project, and does not require direct Meta supervision.<br><br>Use a <strong>W2 Contractor</strong> when you need someone who works under Meta's direction and supervision, performs ongoing tasks, or requires systems access and close integration with Meta's processes.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFAQ(this)">
+            <span class="faq-question">What communications will I receive during the process?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">You will receive regular email updates from the <strong>team meta mailbox</strong> covering: survey completion status, Beeline assignment status, confirmed start date, and equipment readiness and shipment updates (if applicable).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: Contacts -->
+    <section>
+      <div class="section-anchor" id="contacts">
+        <span class="section-number">08</span>
+        <h2 class="section-title">Support &amp; Contacts</h2>
+        <p class="section-subtitle">Reach out to the right person at the right stage.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="contacts-grid">
+        <div class="contact-card" style="border:1px solid #bfdbfe;background:rgba(239,246,255,0.3)">
+          <p class="contact-name">Lara Rustom</p>
+          <p class="contact-role">Meta Contingent Workforce Team</p>
+          <a href="mailto:lararustom@meta.com" class="contact-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> lararustom@meta.com</a>
+          <p class="contact-note">Primary Meta CW contact. Handles IC program oversight, Buy@ Business Validation queue, and escalations.</p>
+        </div>
+        <div class="contact-card" style="border:1px solid #e9d5ff;background:rgba(250,245,255,0.3)">
+          <p class="contact-name">Jim McVoy</p>
+          <p class="contact-role">MBO Account Director, Enterprise Solutions</p>
+          <a href="mailto:jmcvoy@mbopartners.com" class="contact-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> jmcvoy@mbopartners.com</a>
+          <p class="contact-phone"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.79-1.79a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 414-335-9308</p>
+          <p class="contact-note">Escalation support for CWAMs and CWBPs. Account-level questions and program issues.</p>
+        </div>
+        <div class="contact-card" style="border:1px solid #bbf7d0;background:rgba(240,253,244,0.3)">
+          <p class="contact-name">MBO Partners Support</p>
+          <p class="contact-role">General Program &amp; Talent Support</p>
+          <a href="mailto:meta@mbopartners.com" class="contact-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> meta@mbopartners.com</a>
+          <p class="contact-note">For general IC program questions. Also contact for talent onboarding issues.</p>
+        </div>
+        <div class="contact-card" style="border:1px solid #fde68a;background:rgba(255,251,235,0.3)">
+          <p class="contact-name">MBO Talent Experience Team</p>
+          <p class="contact-role">Worker Support (for ICs)</p>
+          <a href="mailto:talentsupport@mbopartners.com" class="contact-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> talentsupport@mbopartners.com</a>
+          <p class="contact-phone"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.79-1.79a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 703-793-6200</p>
+          <p class="contact-hours">Mon–Fri, 8:30 AM – 8:00 PM ET</p>
+          <p class="contact-note">For workers with questions about invoicing, payments, or onboarding. Workers can also submit a ticket via the MBO Portal Help Center.</p>
+        </div>
+      </div>
+      <div class="resources-box">
+        <p class="resources-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0866FF" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Key Resources
+        </p>
+        <div class="resources-grid">
+          <a href="https://www.internalfb.com/people_portal" target="_blank" class="resource-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>People Portal — IC Intake Form</a>
+          <a href="https://www.internalfb.com/intern/buy/store" target="_blank" class="resource-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Buy@ Enterprise Store</a>
+          <a href="https://www.metaenterprise.com/cw/" target="_blank" class="resource-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>CW Profile Portal</a>
+          <a href="https://www.mbopartners.com" target="_blank" class="resource-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>MBO Partners Onboarding Portal</a>
+          <a href="https://www.internalfb.com/support/home/helpdesk" target="_blank" class="resource-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Meta Help Desk</a>
+          <a href="https://www.beeline.com" target="_blank" class="resource-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Beeline (Time &amp; Invoice Approvals)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Meta IC Engagement Guide · Powered by MBO Partners · For internal use only · US engagements only</p>
+      <p>Questions? Contact <a href="mailto:lararustom@meta.com">lararustom@meta.com</a> or <a href="mailto:meta@mbopartners.com">meta@mbopartners.com</a></p>
+      <p style="margin-top:0.5rem">Last updated March 2026</p>
+    </footer>
+  </main>
+</div>
+
+<!-- ── Chatbot ── -->
+<button class="chat-bubble" onclick="toggleChat()" aria-label="Open IC Assistant" id="chat-bubble-btn">
+  <svg id="chat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <svg id="chat-close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-avatar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    </div>
+    <div>
+      <p class="chat-header-name">IC Program Assistant</p>
+      <p class="chat-header-sub">Powered by MBO Partners</p>
+    </div>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-empty" id="chat-empty">
+      <div class="chat-empty-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0866FF" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p class="chat-empty-text">Ask me anything about the IC engagement process</p>
+      <div class="chat-suggestions">
+        <button class="chat-suggestion" onclick="sendSuggestion(this)">How long does the process take?</button>
+        <button class="chat-suggestion" onclick="sendSuggestion(this)">What are the 3 engagement pathways?</button>
+        <button class="chat-suggestion" onclick="sendSuggestion(this)">When do I approve invoices in Beeline?</button>
+        <button class="chat-suggestion" onclick="sendSuggestion(this)">How does equipment ordering work?</button>
+      </div>
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <textarea class="chat-input" id="chat-input" placeholder="Ask about the IC process..." rows="1" onkeydown="handleChatKey(event)"></textarea>
+    <button class="chat-send" id="chat-send-btn" onclick="sendMessage()" aria-label="Send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ── Sidebar active section tracking ──
+const sections = ['overview','classification','pathways','process','equipment','invoicing','faq','contacts'];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.sidebar-link[data-section="${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+sections.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── Mobile nav ──
+function toggleMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  nav.classList.toggle('hidden');
+  menuIcon.style.display = nav.classList.contains('hidden') ? '' : 'none';
+  closeIcon.style.display = nav.classList.contains('hidden') ? 'none' : '';
+}
+
+// Show portal link on desktop
+if (window.innerWidth >= 640) document.getElementById('portal-link').style.display = 'flex';
+
+// ── FAQ accordion ──
+function toggleFAQ(btn) {
+  const answer = btn.nextElementSibling;
+  const chevron = btn.querySelector('.faq-chevron');
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
+  if (!isOpen) { answer.classList.add('open'); chevron.classList.add('open'); }
+}
+
+// ── Chatbot ──
+let chatHistory = [];
+let isLoading = false;
+const TRPC_API_URL = 'https://metaguides-gwvikvnr.manus.space/api/trpc/ai.chat';
+
+const IC_SYSTEM_PROMPT = `You are an expert assistant for Meta's Independent Contractor (IC) Engagement Program, powered by MBO Partners. You help CWAMs (Contingent Workforce Account Managers / hiring managers) and other stakeholders understand and navigate the IC engagement process.
+
+You have deep knowledge of the following topics:
+
+## What is an IC?
+An Independent Contractor (IC) is a self-employed individual or small business with fewer than 5 employees that provides specialized services. ICs operate their own business, control how and when work is performed, use their own tools and methods, are responsible for their own taxes and benefits, and provide services to multiple clients — not just Meta. All IC engagements at Meta must go through MBO Partners.
+
+## IC vs. W2 Contractor
+- IC: specialized professional, runs own business, defined scope/project-based, no direct Meta supervision, uses own tools
+- W2 Contractor: works under Meta's direction, ongoing tasks, requires systems access, close integration with Meta processes
+
+## Engagement Pathways (3 types)
+1. Fully Qualified IC (FQ) — 4.75% markup (2.5% MBO + 1.75% CWx + 0.5% VMS). Worker has legal business entity (EIN), evidence of multiple clients, marketing presence, business liability insurance, and full operational autonomy.
+2. Business Services — 7%–10.25% markup. For workers who want IC status but don't yet meet all criteria. MBO helps them establish a compliant LLC, secure insurance, and build their client base.
+3. Payroll Services (W2) — 16.1%–18.75% markup. Worker doesn't qualify as IC; engaged as W2 employee through MBO.
+
+Markup fees are billed to Meta — they are NOT deducted from the worker's pay.
+
+## Step-by-Step Process (minimum 15 business days)
+Phase 1 — Initiation in Buy@: (1) CWAM completes Global Intake Form (Supplier Invite Form + TPA) in Buy@ via People Portal. (2) Supplier completes registration. (3) If TPA flagged, Meta Legal reviews.
+Phase 2 — MBO Evaluation & Onboarding: (4) CWAM and supplier complete MBO questionnaires (~45 min). (5) MBO presents evaluation results and cost to CWAM. (6) Worker completes onboarding (background check, documents, LLC setup if needed). (7) MBO creates Beeline requisition; Finance approves.
+Phase 3 — Provisioning & Start: (8) CWx handles provisioning in Workday. (9) SOW signed; worker cleared to start.
+
+Pre-Start Checklist: TPA completed, IC Evaluation by MBO, IC Background Check, SOW/IC Agreement signed, Beeline Work Order approved by Finance, Worker Facebook URL check.
+
+## Equipment & Setup
+- Ordered through Enterprise Store (Buy@) → Your devices
+- Worker receives CW Profile activation email from notification@mail.facebookenterprise.com (check spam!)
+- Worker provides shipping address at metaenterprise.com — delivery ~10 business days
+- Setup password in equipment tracking email; support: 1-650-644-5000
+- Returns: worker goes to CW Profile page, selects Start your return, chooses UPS QR Code (recommended)
+- Failure to return assets = financial penalty
+
+## Invoicing & Payments
+IC/Milestone: Worker submits to MBO Portal by Sunday → MBO submits to Beeline Monday → CWAM approves by Thursday 8 PM ET → consolidated Friday → Meta pays MBO Net 15 → worker paid ~3 weeks out.
+Payroll/Hourly: Worker submits time in Beeline by Sunday → CWAM approves by Thursday 8 PM ET → consolidated Friday → Meta pays MBO Net 15 → worker paid 1–2 weeks out.
+
+## Key Contacts
+- Lara Rustom (Meta CW Team): lararustom@meta.com — Primary Meta CW contact
+- Jim McVoy (MBO Account Director): jmcvoy@mbopartners.com, 414-335-9308
+- MBO Partners Support: meta@mbopartners.com
+- MBO Talent Experience Team: talentsupport@mbopartners.com, 703-793-6200 (Mon–Fri 8:30 AM – 8:00 PM ET)
+
+Always be helpful, concise, and accurate. Keep responses focused and actionable.`;
+
+function toggleChat() {
+  const panel = document.getElementById('chat-panel');
+  const chatIcon = document.getElementById('chat-icon');
+  const closeIcon = document.getElementById('chat-close-icon');
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open');
+  chatIcon.style.display = isOpen ? '' : 'none';
+  closeIcon.style.display = isOpen ? 'none' : '';
+}
+
+function sendSuggestion(btn) {
+  document.getElementById('chat-input').value = btn.textContent;
+  sendMessage();
+}
+
+function handleChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function addMessage(role, content) {
+  const empty = document.getElementById('chat-empty');
+  if (empty) empty.remove();
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = `msg msg-${role}`;
+  div.innerHTML = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function addLoadingDots() {
+  const empty = document.getElementById('chat-empty');
+  if (empty) empty.remove();
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg msg-assistant msg-loading';
+  div.id = 'loading-dots';
+  div.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+async function sendMessage() {
+  if (isLoading) return;
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  isLoading = true;
+  document.getElementById('chat-send-btn').disabled = true;
+
+  addMessage('user', text);
+  chatHistory.push({ role: 'user', content: text });
+  addLoadingDots();
+
+  try {
+    const response = await fetch(TRPC_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ json: { messages: chatHistory } })
+    });
+
+    const data = await response.json();
+    const dots = document.getElementById('loading-dots');
+    if (dots) dots.remove();
+
+    const reply = data?.result?.data?.json?.content;
+    if (reply) {
+      chatHistory.push({ role: 'assistant', content: reply });
+      addMessage('assistant', reply);
+    } else {
+      addMessage('assistant', "I'm sorry, I couldn't get a response. Please try again or contact <a href='mailto:meta@mbopartners.com'>meta@mbopartners.com</a>.");
+    }
+  } catch (err) {
+    const dots = document.getElementById('loading-dots');
+    if (dots) dots.remove();
+    addMessage('assistant', "I'm having trouble connecting right now. Please try again or contact <a href='mailto:meta@mbopartners.com'>meta@mbopartners.com</a>.");
+  }
+
+  isLoading = false;
+  document.getElementById('chat-send-btn').disabled = false;
+}
+</script>
+</body>
+</html>
