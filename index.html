@@ -905,7 +905,8 @@ function toggleFAQ(btn) {
 // ── Chatbot ──
 let chatHistory = [];
 let isLoading = false;
-const TRPC_API_URL = 'https://metaguides-gwvikvnr.manus.space/api/trpc/ai.chat';
+const FORGE_API_URL = 'https://forge.manus.ai/v1/chat/completions';
+const FORGE_API_KEY = 'CYocCdgcivwcH6mTQ8BhrV';
 
 const IC_SYSTEM_PROMPT = `You are an expert assistant for Meta's Independent Contractor (IC) Engagement Program, powered by MBO Partners. You help CWAMs (Contingent Workforce Account Managers / hiring managers) and other stakeholders understand and navigate the IC engagement process.
 
@@ -1009,17 +1010,27 @@ async function sendMessage() {
   addLoadingDots();
 
   try {
-    const response = await fetch(TRPC_API_URL, {
+    const response = await fetch(FORGE_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ json: { messages: chatHistory } })
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${FORGE_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'gemini-2.5-flash',
+        messages: [
+          { role: 'system', content: IC_SYSTEM_PROMPT },
+          ...chatHistory
+        ],
+        max_tokens: 1024
+      })
     });
 
     const data = await response.json();
     const dots = document.getElementById('loading-dots');
     if (dots) dots.remove();
 
-    const reply = data?.result?.data?.json?.content;
+    const reply = data?.choices?.[0]?.message?.content;
     if (reply) {
       chatHistory.push({ role: 'assistant', content: reply });
       addMessage('assistant', reply);
