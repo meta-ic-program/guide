@@ -905,8 +905,8 @@ function toggleFAQ(btn) {
 // ── Chatbot ──
 let chatHistory = [];
 let isLoading = false;
-const FORGE_API_URL = 'https://forge.manus.ai/v1/chat/completions';
-const FORGE_API_KEY = 'CYocCdgcivwcH6mTQ8BhrV';
+const GROQ_API_KEY = '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';
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 const IC_SYSTEM_PROMPT = `You are an expert assistant for Meta's Independent Contractor (IC) Engagement Program, powered by MBO Partners. You help CWAMs (Contingent Workforce Account Managers / hiring managers) and other stakeholders understand and navigate the IC engagement process.
 
@@ -1010,19 +1010,20 @@ async function sendMessage() {
   addLoadingDots();
 
   try {
-    const response = await fetch(FORGE_API_URL, {
+    const response = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${FORGE_API_KEY}`
+        'Authorization': `Bearer ${GROQ_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'gemini-2.5-flash',
+        model: 'llama-3.3-70b-versatile',
         messages: [
           { role: 'system', content: IC_SYSTEM_PROMPT },
           ...chatHistory
         ],
-        max_tokens: 1024
+        max_tokens: 1024,
+        temperature: 0.3
       })
     });
 
